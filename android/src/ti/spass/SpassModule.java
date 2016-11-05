@@ -26,9 +26,26 @@ public class SpassModule extends KrollModule {
 	// Standard Debugging variables
 	private static final String LCAT = "SpassModule";
 	private static final boolean DBG = TiConfig.LOGD;
-
+	@Kroll.constant
+	final int STATUS_AUTHENTIFICATION_SUCCESS = SpassFingerprint.STATUS_AUTHENTIFICATION_SUCCESS;
+	@Kroll.constant
+	final int STATUS_AUTHENTIFICATION_PASSWORD_SUCCESS = SpassFingerprint.STATUS_AUTHENTIFICATION_PASSWORD_SUCCESS;
+	@Kroll.constant
+	final int STATUS_TIMEOUT_FAILED = SpassFingerprint.STATUS_TIMEOUT_FAILED;
+	@Kroll.constant
+	final int STATUS_USER_CANCELLED = SpassFingerprint.STATUS_USER_CANCELLED;
+	@Kroll.constant
+	final int STATUS_AUTHENTIFICATION_FAILED = SpassFingerprint.STATUS_AUTHENTIFICATION_FAILED;
+	@Kroll.constant
+	final int STATUS_QUALITY_FAILED = SpassFingerprint.STATUS_QUALITY_FAILED;
+	@Kroll.constant
+	final int STATUS_USER_CANCELLED_BY_TOUCH_OUTSIDE = SpassFingerprint.STATUS_USER_CANCELLED_BY_TOUCH_OUTSIDE;
+	@Kroll.constant
+	final int STATUS_BUTTON_PRESSED = SpassFingerprint.STATUS_BUTTON_PRESSED;
+	@Kroll.constant
+	final int STATUS_OPERATION_DENIED = SpassFingerprint.STATUS_OPERATION_DENIED;
 	private SpassFingerprint spassFingerprint;
-	private  Context context;
+	private Context context;
 	private Spass spass;
 	private SpassFingerprint.IdentifyListener listener = new SpassFingerprint.IdentifyListener() {
 		@Override
@@ -67,16 +84,6 @@ public class SpassModule extends KrollModule {
 		}
 
 	};
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 
 	// You can define constants with @Kroll.constant, for example:
 	// @Kroll.constant public static final String EXTERNAL_NAME = value;
@@ -93,9 +100,7 @@ public class SpassModule extends KrollModule {
 		// put module init code that needs to run when the application is
 		// created
 	}
-	
-	
-	
+
 	// Methods
 	@Kroll.method
 	public void init() throws SsdkUnsupportedException {
@@ -103,9 +108,8 @@ public class SpassModule extends KrollModule {
 			spass.initialize(context);
 		} catch (UnsupportedOperationException e) {
 			//
-		}	
-		
-		
+		}
+
 	}
 
 	// Properties
