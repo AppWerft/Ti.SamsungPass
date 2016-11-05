@@ -8,6 +8,7 @@
  */
 package ti.spass;
 
+import org.appcelerator.kroll.KrollDict;
 import org.appcelerator.kroll.KrollModule;
 import org.appcelerator.kroll.annotations.Kroll;
 import org.appcelerator.titanium.TiApplication;
@@ -50,8 +51,11 @@ public class SpassModule extends KrollModule {
 	private SpassFingerprint.IdentifyListener listener = new SpassFingerprint.IdentifyListener() {
 		@Override
 		public void onFinished(int eventStatus) {
+			KrollDict res = new KrollDict();
+			res.put("status", eventStatus);
 			// It is called when fingerprint identification is finished.
 			if (eventStatus == SpassFingerprint.STATUS_AUTHENTIFICATION_SUCCESS) {
+
 				// Identify operation succeeded with fingerprint
 			} else if (eventStatus == SpassFingerprint.STATUS_AUTHENTIFICATION_PASSWORD_SUCCESS) {
 				// Identify operation succeeded with alternative password
@@ -64,6 +68,9 @@ public class SpassModule extends KrollModule {
 				// STATUS_USER_CANCELLED_BY_TOUCH_OUTSIDE
 				// STATUS_BUTTON_PRESSED
 				// STATUS_OPERATION_DENIED
+			}
+			if (hasListeners("ready")) {
+				fireEvent("ready", res);
 			}
 		}
 
@@ -110,18 +117,6 @@ public class SpassModule extends KrollModule {
 			//
 		}
 
-	}
-
-	// Properties
-	@Kroll.getProperty
-	public String getExampleProp() {
-		Log.d(LCAT, "get example property");
-		return "hello world";
-	}
-
-	@Kroll.setProperty
-	public void setExampleProp(String value) {
-		Log.d(LCAT, "set example property: " + value);
 	}
 
 }
